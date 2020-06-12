@@ -7,7 +7,7 @@
 //
 
 #import "KMViewController.h"
-
+@import KMTools;
 @interface KMViewController ()
 
 @end

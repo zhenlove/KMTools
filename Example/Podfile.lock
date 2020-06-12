@@ -1,0 +1,16 @@
+PODS:
+  - KMTools (0.1.0)
+
+DEPENDENCIES:
+  - KMTools (from `../`)
+
+EXTERNAL SOURCES:
+  KMTools:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  KMTools: c753fc7271d775b3fcce251ad652755875d520ef
+
+PODFILE CHECKSUM: f6f59c7fe3f1f41ad7872cb52b1f898ddfcb9b29
+
+COCOAPODS: 1.9.2
