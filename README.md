@@ -1,6 +1,6 @@
 # KMTools
 
-[![CI Status](https://img.shields.io/travis/zhenlove/KMTools.svg?style=flat)](https://travis-ci.org/zhenlove/KMTools)
+[![Build Status](https://travis-ci.com/zhenlove/KMTools.svg?branch=master)](https://travis-ci.com/zhenlove/KMTools)
 [![Version](https://img.shields.io/cocoapods/v/KMTools.svg?style=flat)](https://cocoapods.org/pods/KMTools)
 [![License](https://img.shields.io/cocoapods/l/KMTools.svg?style=flat)](https://cocoapods.org/pods/KMTools)
 [![Platform](https://img.shields.io/cocoapods/p/KMTools.svg?style=flat)](https://cocoapods.org/pods/KMTools)
