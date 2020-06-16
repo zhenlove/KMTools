@@ -64,32 +64,6 @@ extension UIViewController:UIGestureRecognizerDelegate {
     }
 }
 
-
-extension Date {
-    
-    /// 小于当前时间
-    /// - Parameter dateStr: 指定时间
-    /// - Returns: true Or false
-    public static func lessThanCurrentDate(_ dateStr:String) -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        guard let date = dateFormatter.date(from: dateStr)  else {
-            return false
-        }
-        if date < Date() {
-            return true
-        }
-        return false
-    }
-}
-
-
-extension Dictionary {
-    public static func ToJson(_ data:Data) -> Self? {
-        return try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? Dictionary<Key, Value>
-    }
-}
-
 extension UIColor {
     @objc public static func hex(_ rgbValue:Int) -> UIColor {
         return UIColor(red: ((CGFloat)((rgbValue & 0xFF0000) >> 16)) / 255.0,
@@ -136,3 +110,69 @@ extension Bundle{
     }
 }
 
+public class KMTools: NSObject {
+    private override init() {
+        
+    }
+    
+    /// 小于当前时间
+    /// - Parameter dateStr: 指定时间
+    /// - Returns: true Or false
+    @objc public static func lessThanCurrentDate(_ dateStr:String) -> Bool {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let date = dateFormatter.date(from: dateStr)  else {
+            return false
+        }
+        if date < Date() {
+            return true
+        }
+        return false
+    }
+    
+    /// Json解析
+    /// - Parameter data: JsonData
+    /// - Returns: 字典
+    @objc public static func ToJson(_ data:Data) -> Dictionary<String, Any>? {
+        return try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as? Dictionary<String, Any>
+    }
+    
+    private static func findViewController(_ vc:UIViewController?) -> UIViewController? {
+        var theVC:UIViewController? = vc
+
+        if let newVC = vc as? UITabBarController {
+            theVC = KMTools.findViewController(newVC.selectedViewController)
+        }
+        if let newVC = vc as? UINavigationController {
+            theVC = KMTools.findViewController(newVC.visibleViewController)
+        }
+        if let newVC = vc?.presentedViewController {
+            theVC = newVC
+        }
+        return theVC
+    }
+    
+    private static func findUINavigationController(_ vc:UIViewController?) -> UINavigationController? {
+        var theVC:UINavigationController? = vc as? UINavigationController
+
+        if let newVC = vc as? UITabBarController {
+            theVC = KMTools.findUINavigationController(newVC.selectedViewController)
+        }
+        if let newVC = vc as? UINavigationController {
+            theVC = newVC
+        }
+        return theVC
+    }
+    
+    /// 获取当前正在显示的控制器
+    /// - Returns: 控制器
+    @objc public static func currentViewController() -> UIViewController? {
+        return findViewController(UIApplication.shared.keyWindow?.rootViewController)
+    }
+    
+    /// 获取当前正在使用的导航控制器
+    /// - Returns: 导航控制器
+    @objc public static func currentNavigationController() -> UINavigationController? {
+        return findUINavigationController(UIApplication.shared.keyWindow?.rootViewController)
+    }
+}
